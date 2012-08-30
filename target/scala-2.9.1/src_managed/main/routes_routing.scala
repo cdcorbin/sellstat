@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
 // @HASH:c7f5df06a2cdfa1347eeaa68d8e5b24c9bc3c726
-// @DATE:Thu Aug 30 17:21:25 MDT 2012
+// @DATE:Thu Aug 30 17:32:57 MDT 2012
 
 import play.core._
 import play.core.Router._
