@@ -1,6 +1,6 @@
 package controllers;
 
-import play.*;
+import jobs.EventHole;
 import play.mvc.*;
 
 import views.html.*;
@@ -8,7 +8,8 @@ import views.html.*;
 public class Landing extends Controller {
   
   public static Result index() {
-    return ok(landing.render());
+	  EventHole.parse("data.txt");
+	  return ok(landing.render());
   }
   
 }

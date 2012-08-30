@@ -54,7 +54,7 @@ Seq[Any](format.raw/*1.32*/("""
 }
                 /*
                     -- GENERATED --
-                    DATE: Thu Aug 30 14:35:05 MDT 2012
+                    DATE: Thu Aug 30 17:21:27 MDT 2012
                     SOURCE: C:/software/hackr/sellstat/app/views/main.scala.html
                     HASH: 6a9d3e71a4db67b23442aa0e15837c7026dc07bb
                     MATRIX: 759->1|866->31|954->84|980->89|1077->151|1091->157|1146->191|1242->252|1256->258|1309->290|1370->315|1385->321|1452->366|1555->433|1584->440
