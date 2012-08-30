@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:7146bf5ffec26c2f847f18152bb46ae68389afe6
-// @DATE:Thu Aug 30 14:02:35 MDT 2012
+// @HASH:74446be49db2313c07448b3aef2fb34e9a95567a
+// @DATE:Thu Aug 30 14:35:05 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -15,21 +15,21 @@ object Routes extends Router.Routes {
 
 
 // @LINE:6
-val controllers_Application_index0 = Route("GET", PathPattern(List(StaticPart("/"))))
+val controllers_Landing_index0 = Route("GET", PathPattern(List(StaticPart("/"))))
                     
 
 // @LINE:9
 val controllers_Assets_at1 = Route("GET", PathPattern(List(StaticPart("/assets/"),DynamicPart("file", """.+"""))))
                     
-def documentation = List(("""GET""","""/""","""controllers.Application.index()"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
+def documentation = List(("""GET""","""/""","""controllers.Landing.index()"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
              
     
 def routes:PartialFunction[RequestHeader,Handler] = {        
 
 // @LINE:6
-case controllers_Application_index0(params) => {
+case controllers_Landing_index0(params) => {
    call { 
-        invokeHandler(_root_.controllers.Application.index(), HandlerDef(this, "controllers.Application", "index", Nil))
+        invokeHandler(_root_.controllers.Landing.index(), HandlerDef(this, "controllers.Landing", "index", Nil))
    }
 }
                     
