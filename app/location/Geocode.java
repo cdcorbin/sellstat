@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import play.libs.Json;
 
 public class Geocode {
@@ -19,7 +17,6 @@ public class Geocode {
 	public static String REGION = "region";
 	public static String SENSOR = "sensor";
 	public static String APIURL = "http://maps.googleapis.com/maps/api/geocode/json";
-	public static Json json;
 	
 	public Geocode () {
 
@@ -57,7 +54,7 @@ public class Geocode {
 	private void handleGeocodeSuccess (HttpURLConnection urlc) throws IOException {
 		StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
 		System.out.println(buffer);
-		response = json.fromJson(json.parse(buffer.toString()), GeocodeResponse.class);
+		response = Json.fromJson(Json.parse(buffer.toString()), GeocodeResponse.class);
 	}
 	
 	private void handleGeocodeFailure (HttpURLConnection urlc) {

@@ -1,7 +1,5 @@
 package location;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import location.GeocodeResults;
 
 public class GeocodeResponse {
