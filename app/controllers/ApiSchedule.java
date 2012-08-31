@@ -1,10 +1,10 @@
 package controllers;
 
+import models.ModeledSchedule;
 import models.Schedule;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
-import static play.libs.Json.toJson;
 
 public class ApiSchedule extends Controller {
 
@@ -21,10 +21,10 @@ public class ApiSchedule extends Controller {
 	 */
 	public static Result byUri(String uri) {
 		Logger.info("ApiSchedule:byUri uri:"+uri);
-		Schedule schedule = Schedule.findByUri(uri);
+		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			setResponseHeaders();
-			return ok(toJson(schedule));
+			return ok(schedule.json);
 		} else {
 			return status(404, "not found");
 		}

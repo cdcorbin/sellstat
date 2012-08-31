@@ -10,7 +10,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
 import models.Event;
-import models.Schedule;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;

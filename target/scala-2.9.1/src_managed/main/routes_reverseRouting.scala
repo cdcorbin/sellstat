@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:111f19d591495893cb0a3651d6491fdf5fec01b8
-// @DATE:Thu Aug 30 19:07:51 MDT 2012
+// @HASH:c4be92f11ae93530608199069df92c426f348248
+// @DATE:Thu Aug 30 20:16:49 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -12,22 +12,23 @@ import play.libs.F
 import Router.queryString
 
 
-// @LINE:17
+// @LINE:18
+// @LINE:15
 // @LINE:14
-// @LINE:13
+// @LINE:12
 // @LINE:11
-// @LINE:10
+// @LINE:8
 // @LINE:7
 // @LINE:6
 package controllers {
 
-// @LINE:17
+// @LINE:18
 class ReverseAssets {
     
 
 
  
-// @LINE:17
+// @LINE:18
 def at(file:String) = {
    Call("GET", "/assets/" + implicitly[PathBindable[String]].unbind("file", file))
 }
@@ -38,20 +39,20 @@ def at(file:String) = {
 }
                             
 
+// @LINE:15
 // @LINE:14
-// @LINE:13
 class ReverseApiEvent {
     
 
 
  
-// @LINE:14
+// @LINE:15
 def add() = {
    Call("POST", "/api/events")
 }
                                                         
  
-// @LINE:13
+// @LINE:14
 def get(uri:String) = {
    Call("GET", "/api/events/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
@@ -62,12 +63,19 @@ def get(uri:String) = {
 }
                             
 
+// @LINE:8
 // @LINE:7
 // @LINE:6
 class ReverseLanding {
     
 
 
+ 
+// @LINE:8
+def refresh(uri:String) = {
+   Call("GET", "/refresh/" + implicitly[PathBindable[String]].unbind("uri", uri))
+}
+                                                        
  
 // @LINE:6
 def index() = {
@@ -86,20 +94,20 @@ def load() = {
 }
                             
 
+// @LINE:12
 // @LINE:11
-// @LINE:10
 class ReverseApiSchedule {
     
 
 
  
-// @LINE:11
+// @LINE:12
 def apply(uri:String) = {
    Call("POST", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
                                                         
  
-// @LINE:10
+// @LINE:11
 def byUri(uri:String) = {
    Call("GET", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
@@ -113,22 +121,23 @@ def byUri(uri:String) = {
                     
 
 
-// @LINE:17
+// @LINE:18
+// @LINE:15
 // @LINE:14
-// @LINE:13
+// @LINE:12
 // @LINE:11
-// @LINE:10
+// @LINE:8
 // @LINE:7
 // @LINE:6
 package controllers.javascript {
 
-// @LINE:17
+// @LINE:18
 class ReverseAssets {
     
 
 
  
-// @LINE:17
+// @LINE:18
 def at = JavascriptReverseRoute(
    "controllers.Assets.at",
    """
@@ -144,14 +153,14 @@ def at = JavascriptReverseRoute(
 }
                             
 
+// @LINE:15
 // @LINE:14
-// @LINE:13
 class ReverseApiEvent {
     
 
 
  
-// @LINE:14
+// @LINE:15
 def add = JavascriptReverseRoute(
    "controllers.ApiEvent.add",
    """
@@ -162,7 +171,7 @@ def add = JavascriptReverseRoute(
 )
                                                         
  
-// @LINE:13
+// @LINE:14
 def get = JavascriptReverseRoute(
    "controllers.ApiEvent.get",
    """
@@ -178,12 +187,24 @@ def get = JavascriptReverseRoute(
 }
                             
 
+// @LINE:8
 // @LINE:7
 // @LINE:6
 class ReverseLanding {
     
 
 
+ 
+// @LINE:8
+def refresh = JavascriptReverseRoute(
+   "controllers.Landing.refresh",
+   """
+      function(uri) {
+      return _wA({method:"GET", url:"/refresh/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("uri", uri)})
+      }
+   """
+)
+                                                        
  
 // @LINE:6
 def index = JavascriptReverseRoute(
@@ -212,14 +233,14 @@ def load = JavascriptReverseRoute(
 }
                             
 
+// @LINE:12
 // @LINE:11
-// @LINE:10
 class ReverseApiSchedule {
     
 
 
  
-// @LINE:11
+// @LINE:12
 def apply = JavascriptReverseRoute(
    "controllers.ApiSchedule.apply",
    """
@@ -230,7 +251,7 @@ def apply = JavascriptReverseRoute(
 )
                                                         
  
-// @LINE:10
+// @LINE:11
 def byUri = JavascriptReverseRoute(
    "controllers.ApiSchedule.byUri",
    """
@@ -249,22 +270,23 @@ def byUri = JavascriptReverseRoute(
                     
 
 
-// @LINE:17
+// @LINE:18
+// @LINE:15
 // @LINE:14
-// @LINE:13
+// @LINE:12
 // @LINE:11
-// @LINE:10
+// @LINE:8
 // @LINE:7
 // @LINE:6
 package controllers.ref {
 
-// @LINE:17
+// @LINE:18
 class ReverseAssets {
     
 
 
  
-// @LINE:17
+// @LINE:18
 def at(path:String, file:String) = new play.api.mvc.HandlerRef(
    controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String]))
 )
@@ -275,20 +297,20 @@ def at(path:String, file:String) = new play.api.mvc.HandlerRef(
 }
                             
 
+// @LINE:15
 // @LINE:14
-// @LINE:13
 class ReverseApiEvent {
     
 
 
  
-// @LINE:14
+// @LINE:15
 def add() = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.add(), HandlerDef(this, "controllers.ApiEvent", "add", Seq())
 )
                               
  
-// @LINE:13
+// @LINE:14
 def get(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.get(uri), HandlerDef(this, "controllers.ApiEvent", "get", Seq(classOf[String]))
 )
@@ -299,12 +321,19 @@ def get(uri:String) = new play.api.mvc.HandlerRef(
 }
                             
 
+// @LINE:8
 // @LINE:7
 // @LINE:6
 class ReverseLanding {
     
 
 
+ 
+// @LINE:8
+def refresh(uri:String) = new play.api.mvc.HandlerRef(
+   controllers.Landing.refresh(uri), HandlerDef(this, "controllers.Landing", "refresh", Seq(classOf[String]))
+)
+                              
  
 // @LINE:6
 def index() = new play.api.mvc.HandlerRef(
@@ -323,20 +352,20 @@ def load() = new play.api.mvc.HandlerRef(
 }
                             
 
+// @LINE:12
 // @LINE:11
-// @LINE:10
 class ReverseApiSchedule {
     
 
 
  
-// @LINE:11
+// @LINE:12
 def apply(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiSchedule.apply(uri), HandlerDef(this, "controllers.ApiSchedule", "apply", Seq(classOf[String]))
 )
                               
  
-// @LINE:10
+// @LINE:11
 def byUri(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiSchedule.byUri(uri), HandlerDef(this, "controllers.ApiSchedule", "byUri", Seq(classOf[String]))
 )
