@@ -83,6 +83,7 @@ public class TimeStampedLocation {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			this.dateTime.setTime(Calendar.getInstance().getTime());
 		} 
 	}
 

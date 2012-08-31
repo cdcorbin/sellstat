@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.libs.Akka;
 import play.libs.F.Function;
 import play.libs.F.Promise;
+import play.libs.Json;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.dispatch.Future;
@@ -35,7 +36,7 @@ public class ApiSchedule extends Controller {
 		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			setResponseHeaders();
-			return ok(schedule.json);
+			return ok(Json.parse(schedule.json));
 		} else {
 			return status(404, "not found");
 		}
