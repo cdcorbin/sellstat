@@ -58,6 +58,7 @@ public class ApiSchedule extends Controller {
 			setResponseHeaders();
 			return async(p.map(new Function<Object, Result>() {
 				public Result apply(Object response) {
+					Logger.info("Got response:"+response.toString());
 					return status(200);
 				}
 			}));
