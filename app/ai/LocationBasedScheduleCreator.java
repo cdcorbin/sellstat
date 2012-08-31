@@ -1,5 +1,8 @@
 package ai;
 
+import java.util.List;
+
+import models.Event;
 import models.Schedule;
 
 public class LocationBasedScheduleCreator {
@@ -10,6 +13,17 @@ public class LocationBasedScheduleCreator {
 	
 	public LocationBasedScheduleCreator () {
 		
+	}
+	
+	public void setEvents (List<Event> events) {
+		
+		locationData = new TimeStampedLocation[events.size()];
+		Event event;
+		
+		for (int i=0; i<events.size(); i++) {
+			event = events.get(i);
+			locationData[i] = new TimeStampedLocation(event.latitude, event.longitude, event.eventat);
+		}
 	}
 
 	public Schedule createSchedule () {

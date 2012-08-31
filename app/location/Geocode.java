@@ -31,7 +31,6 @@ public class Geocode {
 		try {
 			
 			url = new URL(APIURL+"?"+query);
-			System.out.println(url);
 			HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
 		    
 		    switch (urlc.getResponseCode()) {
@@ -53,12 +52,11 @@ public class Geocode {
 	
 	private void handleGeocodeSuccess (HttpURLConnection urlc) throws IOException {
 		StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
-		System.out.println(buffer);
 		response = Json.fromJson(Json.parse(buffer.toString()), GeocodeResponse.class);
 	}
 	
 	private void handleGeocodeFailure (HttpURLConnection urlc) {
-		
+		// awwww shiiiit
 	}
 	
 	private Properties addressToProperties () {
@@ -78,9 +76,6 @@ public class Geocode {
 		address.region = "US";
 		geocode.address = address;
 		geocode.getGeocodeResponse();
-		System.out.println(geocode.response.status);
-		System.out.println(geocode.response.results[0].geometry.location.lat);
-		System.out.println(geocode.response.results[0].geometry.location.lng);
 	}
 	
 }
