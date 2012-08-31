@@ -1,7 +1,6 @@
 package controllers;
 
 import models.ModeledSchedule;
-import models.Schedule;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;

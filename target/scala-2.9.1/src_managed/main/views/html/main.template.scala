@@ -36,10 +36,9 @@ Seq[Any](format.raw/*1.32*/("""
         <title>"""),_display_(Seq[Any](/*7.17*/title)),format.raw/*7.22*/("""</title>
         <link rel="stylesheet" media="screen" href=""""),_display_(Seq[Any](/*8.54*/routes/*8.60*/.Assets.at("stylesheets/main.css"))),format.raw/*8.94*/("""">
         <link rel="shortcut icon" type="image/png" href=""""),_display_(Seq[Any](/*9.59*/routes/*9.65*/.Assets.at("images/favicon.png"))),format.raw/*9.97*/("""">
-        <script src=""""),_display_(Seq[Any](/*10.23*/routes/*10.29*/.Assets.at("javascripts/jquery-1.7.1.min.js"))),format.raw/*10.74*/("""" type="text/javascript"></script>
     </head>
     <body>
-        """),_display_(Seq[Any](/*13.10*/content)),format.raw/*13.17*/("""
+        """),_display_(Seq[Any](/*12.10*/content)),format.raw/*12.17*/("""
     </body>
 </html>
 """))}
@@ -54,11 +53,11 @@ Seq[Any](format.raw/*1.32*/("""
 }
                 /*
                     -- GENERATED --
-                    DATE: Thu Aug 30 20:57:42 MDT 2012
+                    DATE: Thu Aug 30 21:42:11 MDT 2012
                     SOURCE: C:/software/hackr/sellstat/app/views/main.scala.html
-                    HASH: 6a9d3e71a4db67b23442aa0e15837c7026dc07bb
-                    MATRIX: 759->1|866->31|954->84|980->89|1077->151|1091->157|1146->191|1242->252|1256->258|1309->290|1370->315|1385->321|1452->366|1555->433|1584->440
-                    LINES: 27->1|30->1|36->7|36->7|37->8|37->8|37->8|38->9|38->9|38->9|39->10|39->10|39->10|42->13|42->13
+                    HASH: 1a55a5fab9481096dbee8798f6b26d18e416ba05
+                    MATRIX: 759->1|866->31|954->84|980->89|1077->151|1091->157|1146->191|1242->252|1256->258|1309->290|1380->325|1409->332
+                    LINES: 27->1|30->1|36->7|36->7|37->8|37->8|37->8|38->9|38->9|38->9|41->12|41->12
                     -- GENERATED --
                 */
             

@@ -1,5 +1,41 @@
 @main(title = "SellStat Hack") {
   
-  <p>Your html here</p>  
-    
+       	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery/jquery.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/charts/js/highcharts.src.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/app/chart.js")"></script>
+  
+<div id="buttonpanel">
+  <div id="sunday">
+	<input type-="button" class="dayButton active" id="sundayButton" value="Sun" readonly="readonly"></input>
+  </div>
+  <div id="monday">
+  	<input type="button" class="dayButton" id="mondayButton" value="Mon" readonly="readonly"></input>
+  </div>
+  <div id="tuesday">
+	<input type-="button" class="dayButton" id="tuesdayButton" value="Tue" readonly="readonly"></input>
+  </div>
+  <div id="wednesday">
+	<input type-="button" class="dayButton" id="wednesdayButton" value="Wed" readonly="readonly"></input>
+  </div>
+  <div id="thursday">
+	<input type-="button" class="dayButton" id="thursdayButton" value="Thu" readonly="readonly"></input>
+  </div>
+  <div id="friday">
+	<input type-="button" class="dayButton" id="fridayButton" value="Fri" readonly="readonly"></input>
+  </div>
+  <div id="saturday">
+	<input type-="button" class="dayButton" id="saturdayButton" value="Sat" readonly="readonly"></input>
+  </div>
+
+</div>
+<div id="charts">
+  <div id="sundayContainer" class="chartContainer"></div>
+  <div id="mondayContainer" class="chartContainer"></div>
+  <div id="tuesdayContainer" class="chartContainer"></div>
+  <div id="wednesdayContainer" class="chartContainer"></div>
+  <div id="thursdayContainer" class="chartContainer"></div>
+  <div id="fridayContainer" class="chartContainer"></div>
+  <div id="saturdayContainer" class="chartContainer"></div>
+</div>    
 }
