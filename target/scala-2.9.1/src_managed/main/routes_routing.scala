@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:d2b3261c9249e65a14498fd8a583b4718015cde3
-// @DATE:Fri Aug 31 09:20:19 MDT 2012
+// @HASH:d4f7b11d5703943b7b1e422b1514053399c37940
+// @DATE:Fri Aug 31 10:01:12 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -42,22 +42,18 @@ val controllers_ApiSchedule_apply5 = Route("POST", PathPattern(List(StaticPart("
 val controllers_ApiSchedule_apply6 = Route("GET", PathPattern(List(StaticPart("/api/scheduleit/"),DynamicPart("uri", """[^/]+"""))))
                     
 
-// @LINE:15
-val controllers_ApiSchedule_go7 = Route("GET", PathPattern(List(StaticPart("/go"))))
+// @LINE:16
+val controllers_ApiEvent_get7 = Route("GET", PathPattern(List(StaticPart("/api/events/"),DynamicPart("uri", """[^/]+"""))))
                     
 
 // @LINE:17
-val controllers_ApiEvent_get8 = Route("GET", PathPattern(List(StaticPart("/api/events/"),DynamicPart("uri", """[^/]+"""))))
+val controllers_ApiEvent_add8 = Route("POST", PathPattern(List(StaticPart("/api/events"))))
                     
 
-// @LINE:18
-val controllers_ApiEvent_add9 = Route("POST", PathPattern(List(StaticPart("/api/events"))))
+// @LINE:20
+val controllers_Assets_at9 = Route("GET", PathPattern(List(StaticPart("/assets/"),DynamicPart("file", """.+"""))))
                     
-
-// @LINE:21
-val controllers_Assets_at10 = Route("GET", PathPattern(List(StaticPart("/assets/"),DynamicPart("file", """.+"""))))
-                    
-def documentation = List(("""GET""","""/""","""controllers.Landing.index()"""),("""GET""","""/load""","""controllers.Landing.load()"""),("""GET""","""/refresh/$uri<[^/]+>""","""controllers.Landing.refresh(uri:String)"""),("""GET""","""/api/oldschedules/$uri<[^/]+>""","""controllers.ApiSchedule.oldByUri(uri:String)"""),("""GET""","""/api/schedules/$uri<[^/]+>""","""controllers.ApiSchedule.byUri(uri:String)"""),("""POST""","""/api/schedules/$uri<[^/]+>""","""controllers.ApiSchedule.apply(uri:String)"""),("""GET""","""/api/scheduleit/$uri<[^/]+>""","""controllers.ApiSchedule.apply(uri:String)"""),("""GET""","""/go""","""controllers.ApiSchedule.go()"""),("""GET""","""/api/events/$uri<[^/]+>""","""controllers.ApiEvent.get(uri:String)"""),("""POST""","""/api/events""","""controllers.ApiEvent.add()"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
+def documentation = List(("""GET""","""/""","""controllers.Landing.index()"""),("""GET""","""/load""","""controllers.Landing.load()"""),("""GET""","""/refresh/$uri<[^/]+>""","""controllers.Landing.refresh(uri:String)"""),("""GET""","""/api/oldschedules/$uri<[^/]+>""","""controllers.ApiSchedule.oldByUri(uri:String)"""),("""GET""","""/api/schedules/$uri<[^/]+>""","""controllers.ApiSchedule.byUri(uri:String)"""),("""POST""","""/api/schedules/$uri<[^/]+>""","""controllers.ApiSchedule.apply(uri:String)"""),("""GET""","""/api/scheduleit/$uri<[^/]+>""","""controllers.ApiSchedule.apply(uri:String)"""),("""GET""","""/api/events/$uri<[^/]+>""","""controllers.ApiEvent.get(uri:String)"""),("""POST""","""/api/events""","""controllers.ApiEvent.add()"""),("""GET""","""/assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""))
              
     
 def routes:PartialFunction[RequestHeader,Handler] = {        
@@ -118,32 +114,24 @@ case controllers_ApiSchedule_apply6(params) => {
 }
                     
 
-// @LINE:15
-case controllers_ApiSchedule_go7(params) => {
-   call { 
-        invokeHandler(_root_.controllers.ApiSchedule.go(), HandlerDef(this, "controllers.ApiSchedule", "go", Nil))
-   }
-}
-                    
-
-// @LINE:17
-case controllers_ApiEvent_get8(params) => {
+// @LINE:16
+case controllers_ApiEvent_get7(params) => {
    call(params.fromPath[String]("uri", None)) { (uri) =>
         invokeHandler(_root_.controllers.ApiEvent.get(uri), HandlerDef(this, "controllers.ApiEvent", "get", Seq(classOf[String])))
    }
 }
                     
 
-// @LINE:18
-case controllers_ApiEvent_add9(params) => {
+// @LINE:17
+case controllers_ApiEvent_add8(params) => {
    call { 
         invokeHandler(_root_.controllers.ApiEvent.add(), HandlerDef(this, "controllers.ApiEvent", "add", Nil))
    }
 }
                     
 
-// @LINE:21
-case controllers_Assets_at10(params) => {
+// @LINE:20
+case controllers_Assets_at9(params) => {
    call(Param[String]("path", Right("/public")), params.fromPath[String]("file", None)) { (path, file) =>
         invokeHandler(_root_.controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String])))
    }

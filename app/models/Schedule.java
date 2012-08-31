@@ -9,6 +9,7 @@ public class Schedule {
 	public String locationId;
 	public String programId;
 	public List<Program> programs;
+	public String savings;
 	
 	public Schedule(String deviceId, String locationId, String programId) {
 		this.deviceId = deviceId;
@@ -36,6 +37,7 @@ public class Schedule {
 		programs.add(new Program("Thu"));
 		programs.add(new Program("Fri"));
 		programs.add(new Program("Sat"));
+		savings = "$0";
 	}
 	
 	public Schedule () {

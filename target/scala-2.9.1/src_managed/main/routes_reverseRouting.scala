@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:d2b3261c9249e65a14498fd8a583b4718015cde3
-// @DATE:Fri Aug 31 09:20:19 MDT 2012
+// @HASH:d4f7b11d5703943b7b1e422b1514053399c37940
+// @DATE:Fri Aug 31 10:01:12 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -12,10 +12,9 @@ import play.libs.F
 import Router.queryString
 
 
-// @LINE:21
-// @LINE:18
+// @LINE:20
 // @LINE:17
-// @LINE:15
+// @LINE:16
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -25,13 +24,13 @@ import Router.queryString
 // @LINE:6
 package controllers {
 
-// @LINE:21
+// @LINE:20
 class ReverseAssets {
     
 
 
  
-// @LINE:21
+// @LINE:20
 def at(file:String) = {
    Call("GET", "/assets/" + implicitly[PathBindable[String]].unbind("file", file))
 }
@@ -42,20 +41,20 @@ def at(file:String) = {
 }
                             
 
-// @LINE:18
 // @LINE:17
+// @LINE:16
 class ReverseApiEvent {
     
 
 
  
-// @LINE:18
+// @LINE:17
 def add() = {
    Call("POST", "/api/events")
 }
                                                         
  
-// @LINE:17
+// @LINE:16
 def get(uri:String) = {
    Call("GET", "/api/events/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
@@ -97,7 +96,6 @@ def load() = {
 }
                             
 
-// @LINE:15
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -132,12 +130,6 @@ def byUri(uri:String) = {
    Call("GET", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
                                                         
- 
-// @LINE:15
-def go() = {
-   Call("GET", "/go")
-}
-                                                        
 
                       
     
@@ -147,10 +139,9 @@ def go() = {
                     
 
 
-// @LINE:21
-// @LINE:18
+// @LINE:20
 // @LINE:17
-// @LINE:15
+// @LINE:16
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -160,13 +151,13 @@ def go() = {
 // @LINE:6
 package controllers.javascript {
 
-// @LINE:21
+// @LINE:20
 class ReverseAssets {
     
 
 
  
-// @LINE:21
+// @LINE:20
 def at = JavascriptReverseRoute(
    "controllers.Assets.at",
    """
@@ -182,14 +173,14 @@ def at = JavascriptReverseRoute(
 }
                             
 
-// @LINE:18
 // @LINE:17
+// @LINE:16
 class ReverseApiEvent {
     
 
 
  
-// @LINE:18
+// @LINE:17
 def add = JavascriptReverseRoute(
    "controllers.ApiEvent.add",
    """
@@ -200,7 +191,7 @@ def add = JavascriptReverseRoute(
 )
                                                         
  
-// @LINE:17
+// @LINE:16
 def get = JavascriptReverseRoute(
    "controllers.ApiEvent.get",
    """
@@ -262,7 +253,6 @@ def load = JavascriptReverseRoute(
 }
                             
 
-// @LINE:15
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -310,17 +300,6 @@ def byUri = JavascriptReverseRoute(
    """
 )
                                                         
- 
-// @LINE:15
-def go = JavascriptReverseRoute(
-   "controllers.ApiSchedule.go",
-   """
-      function() {
-      return _wA({method:"GET", url:"/go"})
-      }
-   """
-)
-                                                        
 
                       
     
@@ -330,10 +309,9 @@ def go = JavascriptReverseRoute(
                     
 
 
-// @LINE:21
-// @LINE:18
+// @LINE:20
 // @LINE:17
-// @LINE:15
+// @LINE:16
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -343,13 +321,13 @@ def go = JavascriptReverseRoute(
 // @LINE:6
 package controllers.ref {
 
-// @LINE:21
+// @LINE:20
 class ReverseAssets {
     
 
 
  
-// @LINE:21
+// @LINE:20
 def at(path:String, file:String) = new play.api.mvc.HandlerRef(
    controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String]))
 )
@@ -360,20 +338,20 @@ def at(path:String, file:String) = new play.api.mvc.HandlerRef(
 }
                             
 
-// @LINE:18
 // @LINE:17
+// @LINE:16
 class ReverseApiEvent {
     
 
 
  
-// @LINE:18
+// @LINE:17
 def add() = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.add(), HandlerDef(this, "controllers.ApiEvent", "add", Seq())
 )
                               
  
-// @LINE:17
+// @LINE:16
 def get(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.get(uri), HandlerDef(this, "controllers.ApiEvent", "get", Seq(classOf[String]))
 )
@@ -415,7 +393,6 @@ def load() = new play.api.mvc.HandlerRef(
 }
                             
 
-// @LINE:15
 // @LINE:14
 // @LINE:13
 // @LINE:12
@@ -440,12 +417,6 @@ def apply(uri:String) = new play.api.mvc.HandlerRef(
 // @LINE:12
 def byUri(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiSchedule.byUri(uri), HandlerDef(this, "controllers.ApiSchedule", "byUri", Seq(classOf[String]))
-)
-                              
- 
-// @LINE:15
-def go() = new play.api.mvc.HandlerRef(
-   controllers.ApiSchedule.go(), HandlerDef(this, "controllers.ApiSchedule", "go", Seq())
 )
                               
 
