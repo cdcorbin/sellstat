@@ -3,6 +3,7 @@ package controllers;
 import jobs.ConnectActor;
 
 import models.ModeledSchedule;
+import models.Schedule;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -10,6 +11,7 @@ import play.libs.Akka;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.Json;
+import tnop.ScheduleWriter;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.dispatch.Future;
@@ -71,6 +73,7 @@ public class ApiSchedule extends Controller {
 		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			Logger.info("updated schedule:" + uri);
+			writeToTNOP(schedule);
 			ActorRef worker = Akka.system().actorOf(new Props(ConnectActor.class));
 			Future<Object> f = Patterns.ask(worker, "ApiSched", new Timeout(Duration.parse("10 seconds")));
 			Promise<Object> p = Akka.asPromise(f);
@@ -84,6 +87,12 @@ public class ApiSchedule extends Controller {
 		} else {
 			return status(404, "not found");
 		}
+	}
+	
+	private static void writeToTNOP (ModeledSchedule modeledSchedule) {
+		Schedule schedule = Json.fromJson(Json.parse(modeledSchedule.json), Schedule.class);
+		ScheduleWriter writer = new ScheduleWriter();
+		writer.setSchedule(schedule);
 	}
 
 }
