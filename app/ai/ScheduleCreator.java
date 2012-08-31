@@ -111,13 +111,5 @@ public final class ScheduleCreator {
 		return schedule;
 
 	}
-	
-	private static void makeWakeSegment(ProgramSegment segment, Calendar calendar) {
-		segment.setName("Wake");
-		segment.setCoolingSetPoint(coolWake);
-		segment.setHeatingSetPoint(heatWake);
-		segment.setTimeOfDay(timeFormatter.format(calendar.getTime()));
-	}
-	
 
 }
