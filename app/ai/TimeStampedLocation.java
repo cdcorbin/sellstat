@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import play.Logger;
 
 public class TimeStampedLocation {
 	
@@ -78,7 +79,7 @@ public class TimeStampedLocation {
 	
 	private void parseDate (String dateTimeStamp) {
 		try {
-			System.out.println(dateTimeStamp);
+			Logger.info(dateTimeStamp);
 			this.dateTime.setTime((Date)formatter.parse(dateTimeStamp));
 			//this.dateTime = Calendar.getInstace().setDate((Date)formatter.parse(dateTimeStamp));
 		} catch (ParseException e) {

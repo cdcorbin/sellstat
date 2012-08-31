@@ -23,7 +23,7 @@ public class Event extends Model {
 	
 	public String eventat;
 	
-	public Event(String uid, double lat, double lng, String ev) {
+	public Event(String uid, double lng, double lat, String ev) {
 		this.uid = uid;
 		this.latitude = lat;
 		this.longitude = lng;
