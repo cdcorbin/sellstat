@@ -44,7 +44,6 @@ public final class ScheduleCreator {
 			Program program;
 			
 			if (day > lastDay) {
-				System.out.println("ld:"+lastDay+"  d:"+day);
 				
 				calendar.set(Calendar.LONG, 0);
 				calendar.set(Calendar.DAY_OF_WEEK, day);
@@ -78,7 +77,6 @@ public final class ScheduleCreator {
 				int minute = entry.getKey()%1440%60;
 				calendar.set(Calendar.HOUR_OF_DAY, hour);
 				calendar.set(Calendar.MINUTE, minute);
-//				System.out.println("else lv:"+lastValue+"  v:"+value);
 				if (lastValue > value) {
 					System.out.println("AWAY " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
 					away.setName("GPS Away");
