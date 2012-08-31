@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Map;
 import java.util.TreeMap;
 
+import play.Logger;
+
 public final class ScheduleCreator {
 	
 	private static SimpleDateFormat dayFormatter = new SimpleDateFormat("EEE");
@@ -76,7 +78,7 @@ public final class ScheduleCreator {
 				calendar.set(Calendar.MINUTE, minute);
 				if (lastValue > value) {
 					if (away.getTimeOfDay() == null) {
-						//System.out.println("AWAY " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
+						//Logger.info("State Change: AWAY\tTime: " + timeFormatter.format(calendar.getTime()));
 						away.setName("GPS Away");
 						away.setCoolingSetPoint(coolAway);
 						away.setHeatingSetPoint(heatAway);
@@ -88,7 +90,7 @@ public final class ScheduleCreator {
 						wake.setTimeOfDay(timeFormatter.format(calendar.getTime()));
 					}
 				} else if (value > lastValue) {
-					//System.out.println("HOME " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
+					//Logger.info("State Change: HOME\tTime: " + timeFormatter.format(calendar.getTime()));
 					home.setName("GPS Home");
 					home.setCoolingSetPoint(coolHome);
 					home.setHeatingSetPoint(heatHome);
