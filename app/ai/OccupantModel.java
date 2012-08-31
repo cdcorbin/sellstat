@@ -2,6 +2,7 @@ package ai;
 
 import java.util.Map;
 import java.util.TreeMap;
+import play.Logger;
 
 public class OccupantModel {
 
@@ -41,6 +42,7 @@ public class OccupantModel {
 			  double[] value = entry.getValue();
 			  double probability = value[1] > 0 ? value[0]/value[1] : 0.0;
 			  probabilities.put(key, probability);
+			  Logger.info("Minute: " + key + "\tProbability: " + probability);
 		}
 		
 	}

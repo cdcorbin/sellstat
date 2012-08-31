@@ -13,6 +13,8 @@ import models.Program;
 import models.ProgramSegment;
 import models.Schedule;
 
+import play.Logger;
+
 public class ScheduleWriter {
 
 	private String APIURL = "http://192.168.224.206:9080/api/rest/device-action";
@@ -107,12 +109,13 @@ public class ScheduleWriter {
 	
 	private void handleSuccess (HttpURLConnection urlc) throws IOException {
 		StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
-		System.out.println(buffer.toString());
+		Logger.info("Successfully sent schedule to TNOP");
+		//System.out.println(buffer.toString());
 	}
 	
 	private void handleFailure (HttpURLConnection urlc) throws IOException {
 		StringBuffer buffer = Util.getStringBufferFromResponse(urlc);
-		System.out.println(buffer.toString());
+		//System.out.println(buffer.toString());
 	}
 
 	public Schedule getSchedule() {
