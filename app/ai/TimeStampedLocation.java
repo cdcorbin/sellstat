@@ -29,6 +29,12 @@ public class TimeStampedLocation {
 		setDateTimeStamp(ts);
 	}
 	
+	public TimeStampedLocation (double lat, double lon) {
+		setLatitude(lat);
+		setLongitude(lon);
+		this.dateTimeStamp = formatter.format(dateTime.getTime());
+	}
+	
 	public int distance (double lat, double lon) {
 		// Calc distance between lat and lon using Haversine Formula
 		double latRad = Math.toRadians(lat);

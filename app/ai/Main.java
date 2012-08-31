@@ -1,13 +1,25 @@
 package ai;
 
 import play.libs.Json;
+import location.Address;
+import location.Geocode;
 import models.Schedule;
 
 public class Main {
 	
-	private static TimeStampedLocation home = new TimeStampedLocation(39.9845275, -105.259552, "2012-08-30T04:37:44.796-07:00");
+	private static TimeStampedLocation home;
 
 	public static void main (String[] args) {
+		
+		Geocode geocode = new Geocode();
+		Address address = new Address();
+		address.streetAddress = "623 Hartford Drive";
+		address.cityState = "Boulder, CO";
+		address.postalCode = "80305";
+		address.region = "US";
+		geocode.address = address;
+		geocode.getGeocodeResponse();
+		home =  new TimeStampedLocation(geocode.response.results[0].geometry.location.lat, geocode.response.results[0].geometry.location.lng);
 		
 		//TimeStampedLocation loc = new TimeStampedLocation(38.997934, -105.550567, "2012-08-30T04:37:44.796-07:00");
 		Bucket[] bucketData = new Bucket[data.length];
