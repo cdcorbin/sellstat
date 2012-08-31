@@ -53,11 +53,8 @@ public final class ScheduleCreator {
 				
 				wake = new ProgramSegment();
 				away = new ProgramSegment();
-				away.setName("GPS Away");
 				home = new ProgramSegment();
-				home.setName("GPS Home");
 				sleep = new ProgramSegment();
-				sleep.setName("Sleep");
 				
 				program.addSegment(wake);
 				program.addSegment(away);
@@ -79,18 +76,20 @@ public final class ScheduleCreator {
 				calendar.set(Calendar.MINUTE, minute);
 				
 				if (lastValue > value) {
-					System.out.println("AWAY " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
-					away.setName("GPS Away");
-					away.setCoolingSetPoint(coolAway);
-					away.setHeatingSetPoint(heatAway);
-					away.setTimeOfDay(timeFormatter.format(calendar.getTime()));
-					wake.setName("Wake");
-					wake.setCoolingSetPoint(coolWake);
-					wake.setHeatingSetPoint(heatWake);
-					calendar.set(Calendar.HOUR_OF_DAY, Math.max(calendar.get(Calendar.HOUR_OF_DAY)-2, 0));
-					wake.setTimeOfDay(timeFormatter.format(calendar.getTime()));
+					if (away.getTimeOfDay() == null) {
+						//System.out.println("AWAY " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
+						away.setName("GPS Away");
+						away.setCoolingSetPoint(coolAway);
+						away.setHeatingSetPoint(heatAway);
+						away.setTimeOfDay(timeFormatter.format(calendar.getTime()));
+						wake.setName("Wake");
+						wake.setCoolingSetPoint(coolWake);
+						wake.setHeatingSetPoint(heatWake);
+						calendar.set(Calendar.HOUR_OF_DAY, Math.max(calendar.get(Calendar.HOUR_OF_DAY)-2, 0));
+						wake.setTimeOfDay(timeFormatter.format(calendar.getTime()));
+					}
 				} else if (value > lastValue) {
-					System.out.println("HOME " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
+					//System.out.println("HOME " + "\t" + dayFormatter.format(calendar.getTime()) + "\t" + lastValue + "\t" + value + " " + timeFormatter.format(calendar.getTime()));
 					home.setName("GPS Home");
 					home.setCoolingSetPoint(coolHome);
 					home.setHeatingSetPoint(heatHome);
