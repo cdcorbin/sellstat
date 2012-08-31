@@ -24,6 +24,20 @@ public class Schedule {
 		programs.add(new Program());
 	}
 	
+	public Schedule(String deviceId) {
+		this.deviceId = deviceId;
+		this.locationId = deviceId;
+		this.programId = deviceId;
+		this.programs = Lists.newArrayList();
+		programs.add(new Program("Sun"));
+		programs.add(new Program("Mon"));
+		programs.add(new Program("Tue"));
+		programs.add(new Program("Wed"));
+		programs.add(new Program("Thu"));
+		programs.add(new Program("Fri"));
+		programs.add(new Program("Sat"));
+	}
+	
 	public Schedule () {
 		this.programs = Lists.newArrayList();
 	}

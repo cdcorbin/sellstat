@@ -31,6 +31,24 @@ public class ApiSchedule extends Controller {
 	 * 
 	 * @return
 	 */
+	public static Result oldByUri(String uri) {
+		String uid = uri+"-old";
+		Logger.info("ApiSchedule:oldByUri uid:"+uid);
+		ModeledSchedule schedule = ModeledSchedule.get(uid);
+		if (null != schedule) {
+			setResponseHeaders();
+			return ok(Json.parse(schedule.json));
+		} else {
+			return status(404, "not found");
+		}
+	}
+
+	/**
+	 * 
+	 * GET /api/schedules/:uri
+	 * 
+	 * @return
+	 */
 	public static Result byUri(String uri) {
 		Logger.info("ApiSchedule:byUri uri:"+uri);
 		ModeledSchedule schedule = ModeledSchedule.get(uri);

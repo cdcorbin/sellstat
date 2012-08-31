@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:c4be92f11ae93530608199069df92c426f348248
-// @DATE:Fri Aug 31 01:23:20 MDT 2012
+// @HASH:80fbe1f9d50d7e7bdbc5f59c28e23ed5e6d78c0e
+// @DATE:Fri Aug 31 02:18:00 MDT 2012
 
 package controllers;
 
