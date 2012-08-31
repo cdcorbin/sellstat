@@ -21,6 +21,7 @@ public class ApiSchedule extends Controller {
 
 	static void setResponseHeaders() {
 		response().setHeader("luckynumber", "999");
+		response().setHeader("Access-Control-Allow-Origin", "*");
 	}
 
 	/**
@@ -51,16 +52,12 @@ public class ApiSchedule extends Controller {
 		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			Logger.info("updated schedule:" + uri);
-
 			ActorRef worker = Akka.system().actorOf(new Props(ConnectActor.class));
 			Future<Object> f = Patterns.ask(worker, "ApiSched", new Timeout(Duration.parse("10 seconds")));
-			// Play uses promise, Akka uses their own future
 			Promise<Object> p = Akka.asPromise(f);
-			// async return for promise of result
-			// promise comes from Function using anonymous method
+			setResponseHeaders();
 			return async(p.map(new Function<Object, Result>() {
 				public Result apply(Object response) {
-					setResponseHeaders();
 					return status(200);
 				}
 			}));

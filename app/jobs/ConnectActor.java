@@ -14,9 +14,9 @@ public class ConnectActor extends UntypedActor {
 	   */
 	  public void onReceive(Object apiType) throws Exception {
 		  log.info("Received apiType: {}", apiType);
-		  if (apiType instanceof Object) {
+		  if (apiType instanceof String) {
 			  // response back to trigger
-			  sender().tell("done");
+			  sender().tell(apiType.toString());
 		  } else {
 			  unhandled(apiType);
 		  }

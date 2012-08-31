@@ -38,4 +38,18 @@
   <div id="fridayContainer" class="chartContainer"></div>
   <div id="saturdayContainer" class="chartContainer"></div>
 </div>    
+
+<div id="bobo"><h2>Let AJAX change this text</h2></div>
+<button>Change Content</button>
+<script type="text/javascript">
+$(document).ready(function(){
+$("button").click(function(){
+  $.ajax({url:"http://metrics.tendrilinc.com/api/schedules/1",success:function(result){
+    $("#bobo").html(result);
+  }});
+});
+});
+</script>
+
+
 }
