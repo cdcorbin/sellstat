@@ -10,7 +10,12 @@ public class ProgramSegment {
 	public ProgramSegment () {
 		
 	}
-
+	public ProgramSegment(double hp, double cp, String tod, String name) {
+		this.heatingSetPoint = hp;
+		this.coolingSetPoint = cp;
+		this.timeOfDay = tod;
+		this.name = name;
+	}
 	public double getHeatingSetPoint() {
 		return heatingSetPoint;
 	}

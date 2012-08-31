@@ -29,12 +29,22 @@ public class ScheduleKicker {
 		if (null == modeledSchedule) {
 			modeledSchedule = new ModeledSchedule(uri, node.toString());
 			modeledSchedule.save();
+			// create dummy preset
+			createPresetSchedule(uri);
 			Logger.info("Created:"+modeledSchedule.json);
 		} else {
 			modeledSchedule.json = node.toString();
 			modeledSchedule.update();
 			Logger.info("Updated:"+modeledSchedule.json);
 		}
+	}
+	
+	public static void createPresetSchedule(String uid) {
+		Schedule schedule = new Schedule(uid);
+		JsonNode node = Json.toJson(schedule);
+		ModeledSchedule modeledSchedule = new ModeledSchedule(uid+"-old", node.toString());
+		modeledSchedule.save();
+		Logger.info("Created preset schedule for uid:"+uid);
 	}
 	
 	public static Schedule model(List<Event> events, TimeStampedLocation home) {

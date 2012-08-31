@@ -8,6 +8,7 @@ GET     /load                           controllers.Landing.load()
 GET     /refresh/:uri                   controllers.Landing.refresh(uri: String)
 
 # API
+GET /api/oldschedules/:uri 				controllers.ApiSchedule.oldByUri(uri: String)
 GET /api/schedules/:uri 				controllers.ApiSchedule.byUri(uri: String)
 POST /api/schedules/:uri 				controllers.ApiSchedule.apply(uri: String)
 
