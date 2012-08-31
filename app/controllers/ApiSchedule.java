@@ -38,7 +38,7 @@ public class ApiSchedule extends Controller {
 	 */
 	public static Result apply(String uri) {
 		Logger.info("ApiSchedule uri:" + uri);
-		Schedule schedule = Schedule.findByUri(uri);
+		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			Logger.info("updated schedule:" + uri);
 			setResponseHeaders();
