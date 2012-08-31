@@ -65,8 +65,7 @@ public class ScheduleWriter {
 			    default :
 			    	handleFailure(urlc);
 		    }
-	    
-		
+		    System.out.println("response from connect:"+urlc.getResponseCode());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

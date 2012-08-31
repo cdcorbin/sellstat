@@ -42,7 +42,7 @@ public class OccupantModel {
 			  double[] value = entry.getValue();
 			  double probability = value[1] > 0 ? value[0]/value[1] : 0.0;
 			  probabilities.put(key, probability);
-			  Logger.info("Minute: " + key + "\tProbability: " + probability);
+			  //Logger.debug("Minute: " + key + "\tProbability: " + probability);
 		}
 		
 	}

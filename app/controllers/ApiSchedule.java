@@ -100,6 +100,12 @@ public class ApiSchedule extends Controller {
 				Schedule.class);
 		ScheduleWriter writer = new ScheduleWriter();
 		writer.setSchedule(schedule);
+		try {
+			writer.writeToTNOP();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

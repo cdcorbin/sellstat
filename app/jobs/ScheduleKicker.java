@@ -60,7 +60,7 @@ public class ScheduleKicker {
 			modeledSchedule.save();
 		}
 		writeToTNOP(modeledSchedule);
-		Logger.info("Created preset schedule for uid:"+uid);
+		Logger.info("pushed preset schedule for uid:"+uid);
 	}
 	
 	public static Schedule model(List<Event> events, TimeStampedLocation home) {
@@ -75,6 +75,12 @@ public class ScheduleKicker {
 				Schedule.class);
 		ScheduleWriter writer = new ScheduleWriter();
 		writer.setSchedule(schedule);
+		try {
+			writer.writeToTNOP();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static TimeStampedLocation getHome () {
