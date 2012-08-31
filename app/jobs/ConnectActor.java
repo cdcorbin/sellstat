@@ -2,14 +2,17 @@ package jobs;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
+import models.ModeledSchedule;
+import models.Schedule;
 
 import play.Logger;
 import play.Play;
+import play.libs.Json;
 import play.libs.WS;
 import play.libs.F.Promise;
 import play.libs.WS.Response;
 import play.libs.WS.WSRequestHolder;
+import tnop.ScheduleWriter;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
@@ -31,16 +34,25 @@ public class ConnectActor extends UntypedActor {
 	   */
 	  public void onReceive(Object apiType) throws Exception {
 		  log.info("Received apiType: {}", apiType);
-		  if (apiType instanceof String) {
+		  if (apiType instanceof ModeledSchedule) {
+			  ModeledSchedule schedule = (ModeledSchedule)apiType;
 			  // response back to trigger
-			  String url = "http://metrics.tendrilinc.com/api/events/1";
-			  Map<String,String> params = Maps.newHashMap();
-			  sender().tell(singleQuery(url, params));
+			  sender().tell("ok");
+			  Logger.info("ConnectActor:onReceive replied to sender");
+			  writeToTNOP(schedule);
+			  Logger.info("ConnectActor:onReceive pushed to connect complete");
 		  } else {
 			  unhandled(apiType);
 		  }
 	  }
 	  
+	  
+	private static void writeToTNOP(ModeledSchedule modeledSchedule) {
+		Schedule schedule = Json.fromJson(Json.parse(modeledSchedule.json),
+				Schedule.class);
+		ScheduleWriter writer = new ScheduleWriter();
+		writer.setSchedule(schedule);
+	}
 	  
 	protected String singleQuery(String query, Map<String, String> params) {
 		Logger.info("Query:" + query);

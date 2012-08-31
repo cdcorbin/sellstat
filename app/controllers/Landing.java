@@ -20,11 +20,13 @@ public class Landing extends Controller {
 
   public static Result load() {
 	  EventHole.parse("data.txt");
+	  setResponseHeaders();
 	  return ok(landing.render());
   }
   
   public static Result refresh(String uri) {
 	  ScheduleKicker.refresh(uri);
+	  setResponseHeaders();
 	  return ok(landing.render());
   }
   

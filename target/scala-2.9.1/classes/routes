@@ -11,6 +11,8 @@ GET     /refresh/:uri                   controllers.Landing.refresh(uri: String)
 GET /api/oldschedules/:uri 				controllers.ApiSchedule.oldByUri(uri: String)
 GET /api/schedules/:uri 				controllers.ApiSchedule.byUri(uri: String)
 POST /api/schedules/:uri 				controllers.ApiSchedule.apply(uri: String)
+GET /api/scheduleit/:uri 				controllers.ApiSchedule.apply(uri: String)
+GET /go                                 controllers.ApiSchedule.go()
 
 GET /api/events/:uri                    controllers.ApiEvent.get(uri: String)
 POST /api/events                        controllers.ApiEvent.add()

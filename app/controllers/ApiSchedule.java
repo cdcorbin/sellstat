@@ -3,7 +3,6 @@ package controllers;
 import jobs.ConnectActor;
 
 import models.ModeledSchedule;
-import models.Schedule;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,7 +10,6 @@ import play.libs.Akka;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.Json;
-import tnop.ScheduleWriter;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.dispatch.Future;
@@ -62,6 +60,11 @@ public class ApiSchedule extends Controller {
 		}
 	}
 
+	public static Result go() {
+		setResponseHeaders();
+		return status(201);
+	}
+	
 	/**
 	 * 
 	 * POST /api/schedules/:uri
@@ -73,15 +76,14 @@ public class ApiSchedule extends Controller {
 		ModeledSchedule schedule = ModeledSchedule.get(uri);
 		if (null != schedule) {
 			Logger.info("updated schedule:" + uri);
-			writeToTNOP(schedule);
 			ActorRef worker = Akka.system().actorOf(new Props(ConnectActor.class));
-			Future<Object> f = Patterns.ask(worker, "ApiSched", new Timeout(Duration.parse("10 seconds")));
+			Future<Object> f = Patterns.ask(worker, schedule, new Timeout(Duration.parse("10 seconds")));
 			Promise<Object> p = Akka.asPromise(f);
 			setResponseHeaders();
 			return async(p.map(new Function<Object, Result>() {
 				public Result apply(Object response) {
 					Logger.info("Got response:"+response.toString());
-					return status(200);
+					return redirect("/go");
 				}
 			}));
 		} else {
@@ -89,10 +91,4 @@ public class ApiSchedule extends Controller {
 		}
 	}
 	
-	private static void writeToTNOP (ModeledSchedule modeledSchedule) {
-		Schedule schedule = Json.fromJson(Json.parse(modeledSchedule.json), Schedule.class);
-		ScheduleWriter writer = new ScheduleWriter();
-		writer.setSchedule(schedule);
-	}
-
 }

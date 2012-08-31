@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:80fbe1f9d50d7e7bdbc5f59c28e23ed5e6d78c0e
-// @DATE:Fri Aug 31 02:18:00 MDT 2012
+// @HASH:d2b3261c9249e65a14498fd8a583b4718015cde3
+// @DATE:Fri Aug 31 09:20:19 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -12,9 +12,11 @@ import play.libs.F
 import Router.queryString
 
 
-// @LINE:19
-// @LINE:16
+// @LINE:21
+// @LINE:18
+// @LINE:17
 // @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -23,13 +25,13 @@ import Router.queryString
 // @LINE:6
 package controllers {
 
-// @LINE:19
+// @LINE:21
 class ReverseAssets {
     
 
 
  
-// @LINE:19
+// @LINE:21
 def at(file:String) = {
    Call("GET", "/assets/" + implicitly[PathBindable[String]].unbind("file", file))
 }
@@ -40,20 +42,20 @@ def at(file:String) = {
 }
                             
 
-// @LINE:16
-// @LINE:15
+// @LINE:18
+// @LINE:17
 class ReverseApiEvent {
     
 
 
  
-// @LINE:16
+// @LINE:18
 def add() = {
    Call("POST", "/api/events")
 }
                                                         
  
-// @LINE:15
+// @LINE:17
 def get(uri:String) = {
    Call("GET", "/api/events/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
@@ -95,6 +97,8 @@ def load() = {
 }
                             
 
+// @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -109,15 +113,29 @@ def oldByUri(uri:String) = {
 }
                                                         
  
+// @LINE:14
 // @LINE:13
 def apply(uri:String) = {
-   Call("POST", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
+   (uri) match {
+// @LINE:13
+case (uri) if true => Call("POST", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
+                                                                
+// @LINE:14
+case (uri) if true => Call("GET", "/api/scheduleit/" + implicitly[PathBindable[String]].unbind("uri", uri))
+                                                                    
+   }
 }
                                                         
  
 // @LINE:12
 def byUri(uri:String) = {
    Call("GET", "/api/schedules/" + implicitly[PathBindable[String]].unbind("uri", uri))
+}
+                                                        
+ 
+// @LINE:15
+def go() = {
+   Call("GET", "/go")
 }
                                                         
 
@@ -129,9 +147,11 @@ def byUri(uri:String) = {
                     
 
 
-// @LINE:19
-// @LINE:16
+// @LINE:21
+// @LINE:18
+// @LINE:17
 // @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -140,13 +160,13 @@ def byUri(uri:String) = {
 // @LINE:6
 package controllers.javascript {
 
-// @LINE:19
+// @LINE:21
 class ReverseAssets {
     
 
 
  
-// @LINE:19
+// @LINE:21
 def at = JavascriptReverseRoute(
    "controllers.Assets.at",
    """
@@ -162,14 +182,14 @@ def at = JavascriptReverseRoute(
 }
                             
 
-// @LINE:16
-// @LINE:15
+// @LINE:18
+// @LINE:17
 class ReverseApiEvent {
     
 
 
  
-// @LINE:16
+// @LINE:18
 def add = JavascriptReverseRoute(
    "controllers.ApiEvent.add",
    """
@@ -180,7 +200,7 @@ def add = JavascriptReverseRoute(
 )
                                                         
  
-// @LINE:15
+// @LINE:17
 def get = JavascriptReverseRoute(
    "controllers.ApiEvent.get",
    """
@@ -242,6 +262,8 @@ def load = JavascriptReverseRoute(
 }
                             
 
+// @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -261,12 +283,18 @@ def oldByUri = JavascriptReverseRoute(
 )
                                                         
  
+// @LINE:14
 // @LINE:13
 def apply = JavascriptReverseRoute(
    "controllers.ApiSchedule.apply",
    """
       function(uri) {
+      if (true) {
       return _wA({method:"POST", url:"/api/schedules/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("uri", uri)})
+      }
+      if (true) {
+      return _wA({method:"GET", url:"/api/scheduleit/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("uri", uri)})
+      }
       }
    """
 )
@@ -282,6 +310,17 @@ def byUri = JavascriptReverseRoute(
    """
 )
                                                         
+ 
+// @LINE:15
+def go = JavascriptReverseRoute(
+   "controllers.ApiSchedule.go",
+   """
+      function() {
+      return _wA({method:"GET", url:"/go"})
+      }
+   """
+)
+                                                        
 
                       
     
@@ -291,9 +330,11 @@ def byUri = JavascriptReverseRoute(
                     
 
 
-// @LINE:19
-// @LINE:16
+// @LINE:21
+// @LINE:18
+// @LINE:17
 // @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -302,13 +343,13 @@ def byUri = JavascriptReverseRoute(
 // @LINE:6
 package controllers.ref {
 
-// @LINE:19
+// @LINE:21
 class ReverseAssets {
     
 
 
  
-// @LINE:19
+// @LINE:21
 def at(path:String, file:String) = new play.api.mvc.HandlerRef(
    controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String]))
 )
@@ -319,20 +360,20 @@ def at(path:String, file:String) = new play.api.mvc.HandlerRef(
 }
                             
 
-// @LINE:16
-// @LINE:15
+// @LINE:18
+// @LINE:17
 class ReverseApiEvent {
     
 
 
  
-// @LINE:16
+// @LINE:18
 def add() = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.add(), HandlerDef(this, "controllers.ApiEvent", "add", Seq())
 )
                               
  
-// @LINE:15
+// @LINE:17
 def get(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiEvent.get(uri), HandlerDef(this, "controllers.ApiEvent", "get", Seq(classOf[String]))
 )
@@ -374,6 +415,8 @@ def load() = new play.api.mvc.HandlerRef(
 }
                             
 
+// @LINE:15
+// @LINE:14
 // @LINE:13
 // @LINE:12
 // @LINE:11
@@ -397,6 +440,12 @@ def apply(uri:String) = new play.api.mvc.HandlerRef(
 // @LINE:12
 def byUri(uri:String) = new play.api.mvc.HandlerRef(
    controllers.ApiSchedule.byUri(uri), HandlerDef(this, "controllers.ApiSchedule", "byUri", Seq(classOf[String]))
+)
+                              
+ 
+// @LINE:15
+def go() = new play.api.mvc.HandlerRef(
+   controllers.ApiSchedule.go(), HandlerDef(this, "controllers.ApiSchedule", "go", Seq())
 )
                               
 
