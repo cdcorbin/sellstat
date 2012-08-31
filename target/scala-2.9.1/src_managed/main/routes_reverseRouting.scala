@@ -1,6 +1,6 @@
 // @SOURCE:C:/software/hackr/sellstat/conf/routes
-// @HASH:ecee75be5141c1db2055f45d942a7fa415b264b1
-// @DATE:Thu Aug 30 17:52:05 MDT 2012
+// @HASH:111f19d591495893cb0a3651d6491fdf5fec01b8
+// @DATE:Thu Aug 30 19:07:51 MDT 2012
 
 import play.core._
 import play.core.Router._
@@ -12,22 +12,48 @@ import play.libs.F
 import Router.queryString
 
 
+// @LINE:17
 // @LINE:14
+// @LINE:13
 // @LINE:11
 // @LINE:10
 // @LINE:7
 // @LINE:6
 package controllers {
 
-// @LINE:14
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:14
+// @LINE:17
 def at(file:String) = {
    Call("GET", "/assets/" + implicitly[PathBindable[String]].unbind("file", file))
+}
+                                                        
+
+                      
+    
+}
+                            
+
+// @LINE:14
+// @LINE:13
+class ReverseApiEvent {
+    
+
+
+ 
+// @LINE:14
+def add() = {
+   Call("POST", "/api/events")
+}
+                                                        
+ 
+// @LINE:13
+def get(uri:String) = {
+   Call("GET", "/api/events/" + implicitly[PathBindable[String]].unbind("uri", uri))
 }
                                                         
 
@@ -87,25 +113,61 @@ def byUri(uri:String) = {
                     
 
 
+// @LINE:17
 // @LINE:14
+// @LINE:13
 // @LINE:11
 // @LINE:10
 // @LINE:7
 // @LINE:6
 package controllers.javascript {
 
-// @LINE:14
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:14
+// @LINE:17
 def at = JavascriptReverseRoute(
    "controllers.Assets.at",
    """
       function(file) {
       return _wA({method:"GET", url:"/assets/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("file", file)})
+      }
+   """
+)
+                                                        
+
+                      
+    
+}
+                            
+
+// @LINE:14
+// @LINE:13
+class ReverseApiEvent {
+    
+
+
+ 
+// @LINE:14
+def add = JavascriptReverseRoute(
+   "controllers.ApiEvent.add",
+   """
+      function() {
+      return _wA({method:"POST", url:"/api/events"})
+      }
+   """
+)
+                                                        
+ 
+// @LINE:13
+def get = JavascriptReverseRoute(
+   "controllers.ApiEvent.get",
+   """
+      function(uri) {
+      return _wA({method:"GET", url:"/api/events/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("uri", uri)})
       }
    """
 )
@@ -187,22 +249,48 @@ def byUri = JavascriptReverseRoute(
                     
 
 
+// @LINE:17
 // @LINE:14
+// @LINE:13
 // @LINE:11
 // @LINE:10
 // @LINE:7
 // @LINE:6
 package controllers.ref {
 
-// @LINE:14
+// @LINE:17
 class ReverseAssets {
     
 
 
  
-// @LINE:14
+// @LINE:17
 def at(path:String, file:String) = new play.api.mvc.HandlerRef(
    controllers.Assets.at(path, file), HandlerDef(this, "controllers.Assets", "at", Seq(classOf[String], classOf[String]))
+)
+                              
+
+                      
+    
+}
+                            
+
+// @LINE:14
+// @LINE:13
+class ReverseApiEvent {
+    
+
+
+ 
+// @LINE:14
+def add() = new play.api.mvc.HandlerRef(
+   controllers.ApiEvent.add(), HandlerDef(this, "controllers.ApiEvent", "add", Seq())
+)
+                              
+ 
+// @LINE:13
+def get(uri:String) = new play.api.mvc.HandlerRef(
+   controllers.ApiEvent.get(uri), HandlerDef(this, "controllers.ApiEvent", "get", Seq(classOf[String]))
 )
                               
 

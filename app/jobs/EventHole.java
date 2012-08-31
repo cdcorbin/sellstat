@@ -28,7 +28,7 @@ public class EventHole {
 		                String[] ll = StringUtils.split(lineb);
 		                Double longr = Double.parseDouble(ll[0]);
 		                Double latr = Double.parseDouble(ll[1]);
-		                Event ev = new Event(longr,latr, linea);
+		                Event ev = new Event("1",longr,latr, linea);
 		                ev.save();
 	            	}
 	            }while (line != null);

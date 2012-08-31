@@ -1,6 +1,8 @@
 package models;
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -21,9 +23,8 @@ public class Event extends Model {
 	
 	public String eventat;
 	
-	
-	public Event(double lat, double lng, String ev) {
-		this.uid = "1";
+	public Event(String uid, double lat, double lng, String ev) {
+		this.uid = uid;
 		this.latitude = lat;
 		this.longitude = lng;
 		this.eventat = ev;
@@ -32,4 +33,15 @@ public class Event extends Model {
 	public String toString() {
 		return latitude+":"+longitude+" "+eventat;
 	}
+	
+    /**
+     * Generic query helper for entity Event with id Long
+     */
+    public static Model.Finder<Long,Event> find = new Model.Finder<Long,Event>(Long.class, Event.class);
+	
+    public static List<Event> getEvents(String uid) {
+    	List<Event> events = find.where().eq("uid", uid).findList();
+    	return events;
+    }
+
 }
