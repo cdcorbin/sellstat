@@ -54,6 +54,6 @@ public class ScheduleKicker {
 		address.region = "US";
 		geocode.address = address;
 		geocode.getGeocodeResponse();
-		return new TimeStampedLocation(geocode.response.results[0].geometry.location.lat, geocode.response.results[0].geometry.location.lng, "");
+		return new TimeStampedLocation(geocode.response.results[0].geometry.location.lat, geocode.response.results[0].geometry.location.lng);
 	}
 }
