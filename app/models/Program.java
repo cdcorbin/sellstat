@@ -24,4 +24,8 @@ public class Program {
 		segments.add(segment);
 	}
 	
+	public List<ProgramSegment> getSegments () {
+		return this.segments;
+	}
+	
 }

@@ -85,7 +85,7 @@ public class TimeStampedLocation {
 	
 	private void parseDate (String dateTimeStamp) {
 		try {
-			Logger.info(dateTimeStamp);
+			//Logger.info(dateTimeStamp);
 			this.dateTime.setTime((Date)formatter.parse(dateTimeStamp));
 			//this.dateTime = Calendar.getInstace().setDate((Date)formatter.parse(dateTimeStamp));
 		} catch (ParseException e) {

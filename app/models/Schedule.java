@@ -36,4 +36,8 @@ public class Schedule {
 		this.programs.add(program);
 	}
 	
+	public List<Program> getPrograms () {
+		return this.programs;
+	}
+	
 }

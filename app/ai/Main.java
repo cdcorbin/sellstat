@@ -1,6 +1,7 @@
 package ai;
 
 import play.libs.Json;
+import tnop.ScheduleWriter;
 import location.Address;
 import location.Geocode;
 import models.Schedule;
@@ -33,7 +34,15 @@ public class Main {
 		model.setTrainingData(bucketData);
 		model.train();
 		Schedule schedule = ScheduleCreator.makeSchedule(model.getProbabilities());
-		System.out.println(Json.toJson(schedule));
+		
+		ScheduleWriter writer = new ScheduleWriter();
+		writer.setSchedule(schedule);
+		try {
+			writer.writeToTNOP();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
