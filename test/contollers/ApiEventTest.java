@@ -2,15 +2,8 @@ package contollers;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.mvc.Http.Status.CREATED;
-import static play.mvc.Http.Status.OK;
-import static play.test.Helpers.GET;
 import static play.test.Helpers.POST;
-import static play.test.Helpers.PUT;
-import static play.test.Helpers.charset;
-import static play.test.Helpers.contentAsString;
-import static play.test.Helpers.contentType;
 import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.fakeRequest;
 import static play.test.Helpers.routeAndCall;
 import static play.test.Helpers.running;
 import static play.test.Helpers.status;

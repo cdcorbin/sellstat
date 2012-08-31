@@ -75,7 +75,7 @@ public class ApiEvent extends Controller {
 			ev.save();
 			Logger.info("ApiEvent:add event:"+ev);
 			setResponseHeaders();
-			return status(200);
+			return status(201);
 		}
 		return status(401, "bad request");
 	}
