@@ -6,6 +6,7 @@
 
 #charts {
 	display:inline-block;
+	margin-left: 0px;
 }
 
 //.dayButton {
@@ -14,13 +15,17 @@
 
 
 .chartContainer {
-	width: 500px;
-	height: 300px;
+	width: 600px;
+	height: 360px;
 }
 
-.dayButton {
-  width: 45px;
+input.dayButton {
+  font: arial;
+  width: 100px;
+  height: 30px;
   text-align: center;
+  margin: 3px;
+  border-radius: 5px;
   color: #ffffff;
   background-color: #74a022;
   background-repeat: repeat-x;
@@ -87,4 +92,50 @@
 	background: none;
  	color: #4B8D40;
  	font-weight: bold;
+}
+
+.hero-unit {
+	padding: 0;
+	background: none;
+}
+
+
+#schedules {
+	margin-left: 0px;
+}
+
+.scheduleCategory {
+	font-size: 10px;
+}
+
+#dayOfWeek {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.scheduleTime {
+	font-size: 18px;
+	color: green;
+}
+
+.schedulePoint {
+	font-size: 30px;
+	color: blue;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#update {
+	width: 250px;
+	height: 80px;
+	font-size: 18px;
+}
+
+#thismuch {
+	color: green;
+	font-size: 54px;
+	height: 75px;
+	text-align: center;
+	margin-bottom: 0px;
+	margin-top: 40px;
 }

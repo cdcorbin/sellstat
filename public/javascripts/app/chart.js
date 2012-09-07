@@ -4,12 +4,20 @@ $(function () {
 
    $(document).ready(function() {
     
+    var oldSchedule;
+    var newSchedule;
     var containers = ["sundayContainer", "mondayContainer", "tuesdayContainer", "wednesdayContainer", "thursdayContainer", "fridayContainer", "saturdayContainer"];
 	var buttons = ["sundayButton", "mondayButton", "tuesdayButton", "wednesdayButton", "thursdayButton", "fridayButton", "saturdayButton"];
 	var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	
+	var twelveHour = ['12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+	var twentyfourHour = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+
 	function getTimeFromIndex(index) {
 		
+	}
+	
+	function jsonpCallback(data) {
+		console.log("yep");
 	}
 
 	function getChartIndex(scheduleSlot) {
@@ -19,6 +27,14 @@ $(function () {
 			index++;
 		}
 		return index;
+	}
+	
+	function getTwelveHourTime(scheduleSlot){
+		var hourAndMinute = scheduleSlot.split(":");
+		index = $.inArray(hourAndMinute[0], twentyfourHour);
+		var hour = twelveHour[index];
+		var ampm = index < 12 ? 'AM' : 'PM';
+		return ( hour + ':' + hourAndMinute[1] + ' ' + ampm);
 	}
 	
 	function getButtonIndex(buttonId) {
@@ -36,137 +52,80 @@ $(function () {
 				$(id).removeClass("active");
 			}
 		}	
+		
+		var degreesFarenheit = ' &#176;F';
+		
+		$('#dayOfWeek').html(weekday[buttonIndex] + "s");
+		var newProgram = newSchedule.programs[buttonIndex];
+		$('#wakeRecommendedTime').html(getTwelveHourTime(newProgram.segments[0].timeOfDay));
+		$('#wakeRecommendedCoolingPoint').html(Math.round(1.8*newProgram.segments[0].coolingSetPoint +32) + degreesFarenheit);
+		$('#awayRecommendedTime').html(getTwelveHourTime(newProgram.segments[1].timeOfDay));
+		$('#awayRecommendedCoolingPoint').html(Math.round(1.8*newProgram.segments[1].coolingSetPoint +32) + degreesFarenheit);	
+		$('#returnRecommendedTime').html(getTwelveHourTime(newProgram.segments[2].timeOfDay));
+		$('#returnRecommendedCoolingPoint').html(Math.round(1.8*newProgram.segments[2].coolingSetPoint +32) + degreesFarenheit);	
+		$('#sleepRecommendedTime').html(getTwelveHourTime(newProgram.segments[3].timeOfDay));
+		$('#sleepRecommendedCoolingPoint').html(Math.round(1.8*newProgram.segments[3].coolingSetPoint +32) + degreesFarenheit);
+		
+		var oldProgram = oldSchedule.programs[buttonIndex];
+		$('#wakeCurrentTime').html(getTwelveHourTime(oldProgram.segments[0].timeOfDay));
+		$('#wakeCurrentCoolingPoint').html(Math.round(1.8*oldProgram.segments[0].coolingSetPoint +32) + degreesFarenheit);
+		$('#awayCurrentTime').html(getTwelveHourTime(oldProgram.segments[1].timeOfDay));
+		$('#awayCurrentCoolingPoint').html(Math.round(1.8*oldProgram.segments[1].coolingSetPoint +32) + degreesFarenheit);
+		$('#returnCurrentTime').html(getTwelveHourTime(oldProgram.segments[2].timeOfDay));
+		$('#returnCurrentCoolingPoint').html(Math.round(1.8*oldProgram.segments[2].coolingSetPoint +32) + degreesFarenheit);
+		$('#sleepCurrentTime').html(getTwelveHourTime(oldProgram.segments[3].timeOfDay));
+		$('#sleepCurrentCoolingPoint').html(Math.round(1.8*oldProgram.segments[3].coolingSetPoint +32) + degreesFarenheit);
+		
+		$('#thismuch').html(newSchedule.savings);
 	}
 	
-	function getChartContainerId(index) {
-		return containers(index);
-	}
+
 	
-	function toggleContainers(index) {
-		for ( var i = 0 ; i < containers.length ; i++ ) {
-			if ( i === index) {
-				var id = "#" + containers[i];
-				$(id).show();
-			}
-			else {
-				var id = "#" + containers[i];
-				$(id).hide();
-			}
+	function getOldResult() {
+		$.ajax( {url: 'http://metrics.tendrilinc.com/api/oldschedules/1',
+				accept: 'application/json'})
+				.done(function(data) {
+					oldSchedule = data;
+					var today = new Date().getDay();
+					toggleActiveButton(today);
+				 })
+				 .fail(function(data) {
+						alert("DOH2!");
+			});
 		}
-	}
 	
-	$('.dayButton').click(function(data) {
-		var index = getButtonIndex($(this).attr("id"));
-		toggleContainers(index);
-		toggleActiveButton(index);
-	})
 	
-	function makeChart(programIndex) {
-		var categories = ['12AM','','','','','', '', '','','', '', '','6AM', '','', '','','', '', '', '','', '', '','12PM', '','','','','', '', '','','', '', '','6PM', '','', '','','', '', '', '','', '', ''];
-		var coolingPoints = new Array();
-		var heatingPoints = new Array();
-		for ( var i = 0 ; i < 48 ; i++ ) {
-			coolingPoints[i] = '';
-			heatingPoints[i] = '';
-		}
-		//get x-axis values ready (testing on Sunday program)
-		var program = schedule.programs[programIndex];
+		$('.dayButton').click(function(data) {
+			var index = getButtonIndex($(this).attr("id"));
+			toggleActiveButton(index);
+		});
 
-		var wakeUpTime = program.segments[0].timeOfDay;
-		var coolingPoint = program.segments[0].coolingSetPoint;
-		var heatingPoint = program.segments[0].heatingSetPoint;
-		var index = getChartIndex(wakeUpTime); 
-		coolingPoints[index] = coolingPoint;
-		heatingPoints[index] = heatingPoint;
 
-		var awayTime = program.segments[1].timeOfDay;
-		var coolingPoint = program.segments[1].coolingSetPoint;
-		var heatingPoint = program.segments[1].heatingSetPoint;
-		var index = getChartIndex(awayTime); 
-		coolingPoints[index] = coolingPoint;
-		heatingPoints[index] = heatingPoint;
-
-		var homeTime = program.segments[2].timeOfDay;
-		var coolingPoint = program.segments[2].coolingSetPoint;
-		var heatingPoint = program.segments[2].heatingSetPoint;
-		var index = getChartIndex(homeTime); 
-		coolingPoints[index] = coolingPoint;
-		heatingPoints[index] = heatingPoint;
-
-		var sleepTime = program.segments[3].timeOfDay;
-		var coolingPoint = program.segments[3].coolingSetPoint;
-		var heatingPoint = program.segments[3].heatingSetPoint;
-		var index = getChartIndex(sleepTime); 
-		coolingPoints[index] = coolingPoint;
-		heatingPoints[index] = heatingPoint;
-
-    	var chart;
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: containers[programIndex],
-                type: 'line',
-                marginRight: 130,
-                marginBottom: 25
-            },
-            title: {
-                text: 'T-Stat Schedule',
-                x: -20 //center
-            },
-			credits : {
-			    enabled : false
-			},
-            subtitle: {
-                text: weekday[programIndex],
-                x: -20
-            },
-            xAxis: {
-                categories: categories
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperature (°C)'
-                },
-				min: 7,
-				max: 32,
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +'°C';
-                },
-				enabled: true
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -10,
-                y: 100,
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Cooling Points',
-                data: coolingPoints
-            }, {
-                name: 'Heating Points',
-                data: heatingPoints
-            }]
-        });
-	}
+		$('#update').click(function(data) {
+			var putResult = $.ajax( {url: 'http://metrics.tendrilinc.com/api/schedules/1',
+								 type: 'POST',
+								accept: 'application/json'})
+			                   .done(function(data) {
+									alert("You thermostat programs have been updated!");
+								})
+								.fail(function(data) {
+									alert("DOH!");
+								});
+		});
 	
-	var schedule = {"deviceId":"1","locationId":"1","programId":"1","programs":[{"dayOfWeek":"Sun","segments":[{"heatingSetPoint":22,"coolingSetPoint":24,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":30,"coolingSetPoint":24,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":66.0,"coolingSetPoint":90.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Mon","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Tue","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Wed","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Thur","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Fri","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Sat","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]}]};
-    var chartCount = containers.length;
-    for ( var i = 0 ; i < chartCount ; i++ ) {
-	  	makeChart(i);
-    }
-   
-    var today = new Date().getDay();
-    toggleContainers(today);
-	toggleActiveButton(today);
+	   var newResult = $.ajax( {url: 'http://metrics.tendrilinc.com/api/schedules/1',
+	                         accept: 'application/json'})
+	                   .done(function(data) {
+							newSchedule = data;
+							getOldResult();
+						})
+						.fail(function(data) {
+							alert("DOH!");
+						});
+						
+
+	
+	//var schedule = {"deviceId":"1","locationId":"1","programId":"1","programs":[{"dayOfWeek":"Sun","segments":[{"heatingSetPoint":22,"coolingSetPoint":24,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":30,"coolingSetPoint":24,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":66.0,"coolingSetPoint":90.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Mon","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Tue","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Wed","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Thur","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Fri","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]},{"dayOfWeek":"Sat","segments":[{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"08:30","name":"WakeUp"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"10:30","name":"Away"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"17:30","name":"Home"},{"heatingSetPoint":22.0,"coolingSetPoint":22.0,"timeOfDay":"22:30","name":"Sleep"}]}]};
+    
   })
 });

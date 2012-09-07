@@ -1,42 +1,143 @@
 @main(title = "SellStat Hack") {
   
-       	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery/jquery.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/charts/js/highcharts.src.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/app/chart.js")"></script>
   
-<div id="buttonpanel">
-  <div id="sunday">
-	<input type-="button" class="dayButton active" id="sundayButton" value="Sun" readonly="readonly"></input>
-  </div>
-  <div id="monday">
-  	<input type="button" class="dayButton" id="mondayButton" value="Mon" readonly="readonly"></input>
-  </div>
-  <div id="tuesday">
-	<input type-="button" class="dayButton" id="tuesdayButton" value="Tue" readonly="readonly"></input>
-  </div>
-  <div id="wednesday">
-	<input type-="button" class="dayButton" id="wednesdayButton" value="Wed" readonly="readonly"></input>
-  </div>
-  <div id="thursday">
-	<input type-="button" class="dayButton" id="thursdayButton" value="Thu" readonly="readonly"></input>
-  </div>
-  <div id="friday">
-	<input type-="button" class="dayButton" id="fridayButton" value="Fri" readonly="readonly"></input>
-  </div>
-  <div id="saturday">
-	<input type-="button" class="dayButton" id="saturdayButton" value="Sat" readonly="readonly"></input>
-  </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Cell Stat</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
-</div>
-<div id="charts">
-  <div id="sundayContainer" class="chartContainer"></div>
-  <div id="mondayContainer" class="chartContainer"></div>
-  <div id="tuesdayContainer" class="chartContainer"></div>
-  <div id="wednesdayContainer" class="chartContainer"></div>
-  <div id="thursdayContainer" class="chartContainer"></div>
-  <div id="fridayContainer" class="chartContainer"></div>
-  <div id="saturdayContainer" class="chartContainer"></div>
-</div>    
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h2>Welcome to Cell Stat!</h2>
+        <p>Visit often to see your recommended thermostat programs, approve them, and set them into action. It's as easy as clicking a button.</p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span2">
+		  <div id="buttonpanel">
+		    <div id="sunday">
+			  <input type="button" class="dayButton active" id="sundayButton" value="Sunday"></input>
+		    </div>
+		    <div id="monday">
+			  <input type="button" class="dayButton" id="mondayButton" value="Monday"></input>
+			</div>
+		    <div id="tuesday">
+			  <input type="button" class="dayButton" id="tuesdayButton" value="Tuesday"></input>
+		    </div>
+		    <div id="wednesday">
+			  <input type="button" class="dayButton" id="wednesdayButton" value="Wednesday"></input>
+		    </div>
+		    <div id="thursday">
+			  <input type="button" class="dayButton" id="thursdayButton" value="Thursday"></input>
+		    </div>
+		    <div id="friday">
+			  <input type="button" class="dayButton" id="fridayButton" value="Friday"></input>
+		    </div>
+		    <div id="saturday">
+			  <input type="button" class="dayButton" id="saturdayButton" value="Saturday"></input>
+		    </div>
+		  </div>
+		</div>
+
+        <div class="span7" id="schedules">
+	        <div id="dayOfWeek">hi</div>
+	        <div>
+			<table class="table table-bordered table-condensed">
+			<thead class="scheduleHeader">
+				<th width="33%">When You...</th>
+				<th  width="33%">Your Settings Are...</th>
+				<th>We Recommend...</th>
+			</thead>
+			<tr>
+				<td class="scheduleCategory"><div><center>Wake Up</center></div><div><center>
+				<img src="@routes.Assets.at("img/alarm_58x77.png")" />
+				</center></div></td>
+				<td class="scheduleData" id="wakeCurrent">
+					<div class="scheduleTime" id="wakeCurrentTime"></div>
+					<div class="schedulePoint" id="wakeCurrentCoolingPoint"></div>
+				</td>
+				<td class="scheduleData" id="wakeRecommended">
+					<div class="scheduleTime" id="wakeRecommendedTime"></div>
+					<div class="schedulePoint" id="wakeRecommendedCoolingPoint"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="scheduleCategory"><div><center>Are Away</center></div><div><center>
+				<img src="@routes.Assets.at("img/brb_62x62.png")" />
+				</center></div></td>
+				<td class="scheduleData" id="awayCurrent">
+					<div class="scheduleTime" id="awayCurrentTime"></div>
+					<div class="schedulePoint" id="awayCurrentCoolingPoint"></div>	
+				</td>
+				<td class="scheduleData" id="awayRecommended">
+					<div class="scheduleTime" id="awayRecommendedTime"></div>
+					<div class="schedulePoint" id="awayRecommendedCoolingPoint"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="scheduleCategory"><div><center>Come Back</center></div><div><center>
+				<img src="@routes.Assets.at("img/boomerang_62x62.png")" />
+				</center></div></td>
+				<td class="scheduleData" id="returnCurrent">
+					<div class="scheduleTime" id="returnCurrentTime"></div>
+					<div class="schedulePoint" id="returnCurrentCoolingPoint"></div>
+				</td>
+				<td class="scheduleData" id="returnRecommended">
+					<div class="scheduleTime" id="returnRecommendedTime"></div>
+					<div class="schedulePoint" id="returnRecommendedCoolingPoint"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="scheduleCategory"><div><center>Are Asleep</center></div><div><center>
+				<img src="@routes.Assets.at("img/asleep_65x67.png")" />
+				</center></div></td>
+				<td class="scheduleData" id="sleepCurrent">
+					<div class="scheduleTime" id="sleepCurrentTime"></div>
+					<div class="schedulePoint" id="sleepCurrentCoolingPoint"></div>					
+				</td>
+				<td class="scheduleData" id="sleepRecommended">
+					<div class="scheduleTime" id="sleepRecommendedTime"></div>
+					<div class="schedulePoint" id="sleepRecommendedCoolingPoint"></div>					
+				</td>
+			</tr>
+			</table>
+			</div>
+	    </div>
+        <div class="span3">
+	      <div id="youcansave"><h3>You can save:</h3></div>
+		  <div id="thismuch"></div>
+		  <div>
+          <h3>Like what you see?</h3>
+          <p>To take advantage of your recommended thermostat program, simply click "Update!" and begin saving money on your electricity bill today.</p>
+          <p><input type="button" class="btn" id="update" value="Update!"></input></p>
+          </div>
+       </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Tendri 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
 
 }
